@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Fill-in-the-BERT </title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+  <style type="text/css">
+    .textbuttons {
+      text-align: center;
+    } 
+    .form-control{
+      font-family: 'roboto';
+      font-size: 22px;
+    }
+    .info{
+     float: center;
+     text-align: center;
+    }
+    #out{
+     text-align: center; 
+      font-family: 'roboto';
+      font-size: 20px;
+    }
+    
+  </style>
+</head>
+<body>
+<div class="container mt-3">
+  <form>
+    <div class="form-group">
+      <label for="comment">Input text:</label>  
+      <textarea class="form-control" rows="1" id="comment"></textarea>
+      <span class='spantext' id='remainingChars'></span>
+    </div>
+    <div class="mt-3 textbuttons">
+      <button type="button" class="btn btn-primary" id="predictBtn" onclick="fillblanks();">Submit</button>
+    </div>
+  </form><br><br>
+
+  <div class='info'>
+     <p id="output" style='font-family: "roboto";font-size: 23px;'></p> 
+  </div><br><br>
+
+  <div>
+    <b><p>Guidelines: </p></b>
+    <ol>
+      <li>
+        Use __ to represent the blank or mask.
+      </li>
+      <li>
+        Use only one blank space between words.
+      </li>
+    </ol>
+  </div>
+  <div>
+    <b><p>Example: </p></b>
+    <ol>
+      <li>
+        Users can __ current version of pywidgets with pip or conda. Installing ipywidgets with __ will also enable the extension for you.
+      </li>
+      <li>
+        Users can <font color="red"><b><i>'install'</i></b></font> current version of pywidgets with pip or conda. Installing ipywidgets with <font color="red"><b><i>'pip'</i></b></font> will also enable the extension for you.
+      </li>
+    </ol>
+  </div>
+  
+</div>
+
+<script type="text/javascript">
+    function fillblanks(){
+      var input_txt = document.getElementById('comment').value
+      var URL = 'http://0.0.0.0:5000/fillblanks'
+      var dataString = "text="+input_txt;
+      
+      $.ajax({
+          type: 'POST',
+          url: URL,
+          data: dataString,
+          success: function(resp) {
+            document.getElementById('output').innerHTML = resp;
+          }
+      });
+    }
+  
+</script>
+  
+</body>
+</html>
