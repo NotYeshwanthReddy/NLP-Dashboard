@@ -93,13 +93,10 @@ def MLM_predict():
 		answers.append(list(zip(predicted_tokens,predicted_prob.tolist())))
 	
 	for answer in answers:
-		sentence_orig = sentence_orig.replace('__', '<font color="red"><b><i>'+answer[0][0]+'</i></b></font>', 1)
-	output = sentence_orig+" <br>"
-	for i, answer in enumerate(answers):
-		output+="<h4>"+str(i+1)+"</h4><ul>"
-		for prediction in answer:
-			output+="<li>"+prediction+"</li>"
-		output+="</ul>"
+		popup = [str(word)+": "+str(round(value, 4)) for word,value in answer]
+		popup = ("<br>").join(popup)
+		sentence_orig = sentence_orig.replace('__', '<i><b>'+answer[0][0]+'</b><span>'+popup+'</span></i>', 1)
+	output = '<p id="info">'+sentence_orig+'</p>'
 	
 	return output
 

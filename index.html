@@ -25,8 +25,31 @@
       font-family: 'roboto';
       font-size: 20px;
     }
-    
+    p#info i  {
+      text-decoration:none;
+      color: #FF0000;
+    }
+    p#info i span {display: none;}
+    p#info i{
+      position: relative;
+      display: inline-block;
+    }
+    p#info i:hover span {
+      display: block;
+      text-align: center;
+      position: absolute;
+      padding: 10px;
+      z-index: 1;
+      width: 200px;
+      color: #fff;
+      background-color: #555;
+      font: 16px Verdana, Arial, Helvetica, sans-serif;
+      border-radius: 6px;
+      border: 1px solid #666666;
+      text-decoration: none;
+    }
   </style>
+
 </head>
 <body>
 <div class="container mt-3">
@@ -62,12 +85,9 @@
       <li>
         Users can __ current version of pywidgets with pip or conda. Installing ipywidgets with __ will also enable the extension for you.
       </li>
-      <li>
-        Users can <font color="red"><b><i>'install'</i></b></font> current version of pywidgets with pip or conda. Installing ipywidgets with <font color="red"><b><i>'pip'</i></b></font> will also enable the extension for you.
-      </li>
+      <li><p id="info">Users can <i><b>install</b><span>install: 0.5279<br>use: 0.0474<br>download: 0.0383<br>update: 0.0278<br>load: 0.0247</span></i> current version of pywidgets with pip or conda. Installing ipywidgets with <i><b>pip</b><span>pip: 0.9778<br>zip: 0.0014<br>ping: 0.0012<br>python: 0.0004<br>ip: 0.0004</span></i> will also enable the extension for you.</p></li>
     </ol>
   </div>
-  
 </div>
 
 <script type="text/javascript">
