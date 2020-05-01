@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>Fill-in-the-BERT </title>
+  <title>Language-Modelling</title>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
@@ -55,7 +55,7 @@
 <div class="container mt-3">
   <form>
     <div class="form-group">
-      <label for="comment">Input text:</label>  
+      <label for="comment">BERT: Masked Language Modelling</label>  
       <textarea class="form-control" rows="1" id="comment"></textarea>
       <span class='spantext' id='remainingChars'></span>
     </div>
@@ -81,12 +81,12 @@
   </div>
   <div>
     <b><p>Example: </p></b>
-    <ol>
+    <ul>
       <li>
-        Users can __ current version of pywidgets with pip or conda. Installing ipywidgets with __ will also enable the extension for you.
+        Input: Users can __ current version of pywidgets with pip or conda. Installing ipywidgets with __ will also enable the extension for you.
       </li>
-      <li><p id="info">Users can <i><b>install</b><span>install: 0.5279<br>use: 0.0474<br>download: 0.0383<br>update: 0.0278<br>load: 0.0247</span></i> current version of pywidgets with pip or conda. Installing ipywidgets with <i><b>pip</b><span>pip: 0.9778<br>zip: 0.0014<br>ping: 0.0012<br>python: 0.0004<br>ip: 0.0004</span></i> will also enable the extension for you.</p></li>
-    </ol>
+      <li><p id="info"> Output: Users can <i><b>install</b><span>install: 0.5279<br>use: 0.0474<br>download: 0.0383<br>update: 0.0278<br>load: 0.0247</span></i> current version of pywidgets with pip or conda. Installing ipywidgets with <i><b>pip</b><span>pip: 0.9778<br>zip: 0.0014<br>ping: 0.0012<br>python: 0.0004<br>ip: 0.0004</span></i> will also enable the extension for you.</p></li>
+    </ul>
   </div>
 </div>
 
