@@ -15,7 +15,7 @@ $> python3 app.py
 
 
 
-## Demo
+## UI
 ![NLP Dashboard UI](https://github.com/NotYeshwanthReddy/NLP-Dashboard/blob/master/UI.png)
 
 ## Details
