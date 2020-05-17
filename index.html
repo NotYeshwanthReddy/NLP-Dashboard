@@ -5,9 +5,9 @@
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
   <style type="text/css">
     .textbuttons {
       text-align: center;
@@ -45,25 +45,40 @@
 
 </head>
 <body>
-<H1 style="text-align: center;">NLP-Dashboard</H1>
-  <!-- ================== GPT-2 ================== -->
+
+<H1 style="text-align: center;">NLP-Dashboard</H1><br><br><br>
+
 <div class="container mt-3">
+  <!-- ___________________ GPT-2 - LM ___________________ -->
   <form>
     <div class="form-group">
-      <label for="gpt2_comment">GPT2: Language Modelling</label>  
+      <label for="gpt2_comment"><H4>GPT2: Language Modelling</H4></label>  
       <textarea class="form-control" rows="1" id="gpt2_comment"></textarea>
       <span class='spantext' id='remainingChars'></span>
     </div>
   </form>
-<!-- GPT2 Output -->
+  <!-- GPT2 Output -->
   <div class='info'>
-    <p id="gpt2_output" ></p> 
- </div><br><br>
-
- <!-- ================== BERT ================== -->
+    <p id="gpt2_lm_output" style='font-family: "roboto";'></p> 
+  </div>
+  <!-- Usage -->
+  <div>
+    <p>
+      Usage:<ul>
+              <li>Just type your sentence in the field given</li>
+              <li>Word suggestions are shown below the field</li>
+            </ul>
+      Example: <ul>
+                <li><B>Input:</B> A so-called modern Judeo-Christian</li>
+                <li><B>Output:</B>[' "', ' home', ' church', ' tradition', ' liberalism']</li>
+              </ul> 
+    </p>
+  </div><br>
+  <hr><br>
+  <!-- ___________________ BERT - MLM ___________________ -->
   <form>
     <div class="form-group">
-      <label for="bert_comment">BERT: Masked Language Modelling</label>  
+      <label for="bert_comment"><H4>BERT: Masked Language Modelling</H4></label>  
       <textarea class="form-control" rows="1" id="bert_comment"></textarea>
       <span class='spantext' id='remainingChars'></span>
     </div>
@@ -71,46 +86,67 @@
       <button type="button" class="btn btn-primary" id="predictBtn" onclick="fillblanks();">Submit</button>
     </div>
   </form>
-<!-- BERT Output -->
+  <!-- BERT Output -->
   <div class='info'>
-     <p id="bert_output" style='font-family: "roboto";font-size: 23px;'></p> 
-  </div><br><br>
-
+     <p id="bert_mlm_output" style='font-family: "roboto";'></p> 
+  </div>
+  <!-- Usage -->
   <div>
-    <b><p>Usage: </p></b>
-    <ol>
-      <li>
-        GPT-2:<ul>
-              <li>Just type your sentence in the field given</li>
-              <li>Word suggestions are shown below the field</li>
-            </ul>
-      </li>
-      <li>
-        BERT:<ul>
+    <p>
+      Usage:<ul>
               <li>Use __ to represent the blank or mask.</li>
-              <li>Use only one blank space between words.</li>
+              <li>Use only one space between words.</li>
+              <li>Hover over highlighted words to see mode suggestions with corresponding probabilities.</li>
             </ul>
-      </li>
-    </ol>
+      Example: <ul>
+              <li><B>Input:</B> Users can __ current version of pywidgets with pip or conda. Installing ipywidgets with __ will also enable the extension for you.</li>
+              <li><p id="info"> <B>Output:</B> Users can <i><b>install</b><span>install: 0.5279<br>use: 0.0474<br>download: 0.0383<br>update: 0.0278<br>load: 0.0247</span></i> current version of pywidgets with pip or conda. Installing ipywidgets with <i><b>pip</b><span>pip: 0.9778<br>zip: 0.0014<br>ping: 0.0012<br>python: 0.0004<br>ip: 0.0004</span></i> will also enable the extension for you.</p></li>
+            </ul> 
+    </p>
+    
+  </div><br>
+  <hr><br>
+  <!-- ___________________ BERT - QnA ___________________ -->
+  <form>
+    <div class="form-group">
+      <label for="bert_qna"><H4>BERT: Question Answering</H4></label>  
+      <H6>Passage:</H6>
+      <textarea class="form-control" rows="2" id="bert_qna_passage"></textarea>
+      <H6>Question:</H6>
+      <textarea class="form-control" rows="1" id="bert_qna_question"></textarea>
+      <span class='spantext' id='remainingChars'></span>
+    </div>
+    <div class="mt-3 textbuttons">
+      <button type="button" class="btn btn-primary" id="predictBtn" onclick="qna();">Submit</button>
+    </div>
+  </form>
+  <!-- BERT Output -->
+  <div class='info'>
+     <p id="bert_qna_output" style='font-family: "roboto";'></p> 
   </div>
+  <!-- Usage -->
   <div>
-    <b><p>Example: </p></b>
-    <ol>
-      <li>
-        GPT-2: <ul>
-          <li><B>Input:</B> A so-called modern Judeo-Christian</li>
-          <li><B>Output:</B>[' "', ' home', ' church', ' tradition', ' liberalism']</li>
-        </ul> 
-      </li>
-      <li>
-        BERT: <ul>
-          <li><B>Input:</B> Users can __ current version of pywidgets with pip or conda. Installing ipywidgets with __ will also enable the extension for you.</li>
-          <li><p id="info"> <B>Output:</B> Users can <i><b>install</b><span>install: 0.5279<br>use: 0.0474<br>download: 0.0383<br>update: 0.0278<br>load: 0.0247</span></i> current version of pywidgets with pip or conda. Installing ipywidgets with <i><b>pip</b><span>pip: 0.9778<br>zip: 0.0014<br>ping: 0.0012<br>python: 0.0004<br>ip: 0.0004</span></i> will also enable the extension for you.</p></li>
-        </ul> 
-      </li>
-    </ol>
-  </div>
+    <p>
+      Usage:<ul>
+              <li>Enter passage and question</li>
+              <li>Do not use emojis</li>
+              <li>Hover over answer to see Confidence.</li>
+            </ul>
+      Example: <ul>
+              <li><B>Input:</B> <ul>
+                <li>Passage: "I went to Hyd last week. I ate chicken. My name is Ram."</li>
+                <li>Question: "what did you eat?"</li>
+              </ul></li>
+              <li><p id="info"><B>Output: </B><i><b>chicken</b><span> Confidence: 0.9708</span></i></p></li>
+            </ul> 
+    </p>
+    
+  </div><br>
+
 </div>
+
+
+<!-- ========================== Java Script ========================== -->
 
 <script type="text/javascript">
   document.getElementById("gpt2_comment").oninput = function() {get_next_word()};
@@ -125,7 +161,7 @@
         url: URL,
         data: dataString,
         success: function(resp) {
-          document.getElementById('gpt2_output').innerHTML = resp;
+          document.getElementById('gpt2_lm_output').innerHTML = "Answer: "+resp;
         }
       });
   }
@@ -142,12 +178,29 @@
           url: URL,
           data: dataString,
           success: function(resp) {
-            document.getElementById('bert_output').innerHTML = resp;
+            document.getElementById('bert_mlm_output').innerHTML = "Answer: "+resp;
           }
       });
     }
-
 </script>
-  
+
+<script type="text/javascript">
+  function qna(){
+    var Passage = document.getElementById('bert_qna_passage').value
+    var Question = document.getElementById('bert_qna_question').value
+    var URL = 'http://0.0.0.0:5000/qna'
+    var dataString = 'text= {"passage":"'+Passage+'", "question":"'+Question+'"}';
+    
+    $.ajax({
+        type: 'POST',
+        url: URL,
+        data: dataString,
+        success: function(resp) {
+          document.getElementById('bert_qna_output').innerHTML = "Answer: "+resp;
+        }
+    });
+  }
+</script>
+
 </body>
 </html>
